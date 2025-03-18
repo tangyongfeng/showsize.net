@@ -462,8 +462,9 @@
                 heightSlider.value = height;
                 document.getElementById("widthValue").textContent = width;
                 document.getElementById("heightValue").textContent = height;
-                widthSlider.disabled = true;
-                heightSlider.disabled = true;
+                // 移除禁用滑动条的代码，使滑动条始终可用
+                // widthSlider.disabled = true;
+                // heightSlider.disabled = true;
                 drawRectangle();
             }
         }
