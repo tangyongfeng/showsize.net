@@ -151,7 +151,7 @@
             "ar": { name: "العربية", title: "لوحة التحكم", lang: "اختر اللغة", country: "اختر الدولة", size: "اختر الحجم", width: "العرض (مم)", height: "الارتفاع (مم)", rotate: "زاوية الدوران", warning: "حجم المستطيل يتجاوز أبعاد نافذة العرض الخاصة بك" },
             "ko": { name: "한국어", title: "제어판", lang: "언어 선택", country: "국가 선택", size: "크기 선택", width: "너비 (mm)", height: "높이 (mm)", rotate: "회전 각도", warning: "사각형 크기가 뷰포트 크기를 초과했습니다" },
             "hi": { name: "हिन्दी", title: "नियंत्रण कक्ष", lang: "भाषा चुनें", country: "देश चुनें", size: "आकार चुनें", width: "चौड़ाई (मिमी)", height: "ऊंचाई (मिमी)", rotate: "घूमने का कोण", warning: "आयत का आकार आपके व्यूपोर्ट आयामों से अधिक है" },
-            "bn": { name: "বাংলা", title: "নিয়ন্ত্রণ প্যানেল", lang: "ভাষা নির্বাচন করুন", country: "দেশ নির্বাচন করুন", size: "আকার নির্বাচন করুন", width: "প্রস্থ (মিমি)", height: "উচ্চতা (মিমি)", rotate: "ঘূর্ণন কোণ", warning: "আয়তক্ষেত্রের আকার আপনার ভিউপোর্টের মাত্রা অতিক্রম করেছে" },
+            "bn": { name: "বাংলা", title: "নিয়ন্ত্রণ প্যানেল", lang: "ভাষা নির্বাচন করুন", country: "দেশ নির্বাচন করুন", size: "আকाর নির্বাচন করুন", width: "প্রস্থ (মিমি)", height: "উচ্চতা (মিমি)", rotate: "ঘূর্ণন কোণ", warning: "আয়তক্ষেত্রের আকाর আপনার ভিউপোর্টের মাত্রা অতিক্রম করেছে" },
             "tr": { name: "Türkçe", title: "Kontrol Paneli", lang: "Dil Seç", country: "Ülke Seç", size: "Boyut Seç", width: "Genişlik (mm)", height: "Yükseklik (mm)", rotate: "Dönüş Açısı", warning: "Dikdörtgen boyutu görüntü alanınızın boyutlarını aşıyor" },
             "vi": { name: "Tiếng Việt", title: "Bảng Điều Khiển", lang: "Chọn Ngôn Ngữ", country: "Chọn Quốc Gia", size: "Chọn Kích Thước", width: "Chiều Rộng (mm)", height: "Chiều Cao (mm)", rotate: "Góc Xoay", warning: "Kích thước hình chữ nhật vượt quá kích thước viewport của bạn" },
             "th": { name: "ไทย", title: "แผงควบคุม", lang: "เลือกภาษา", country: "เลือกประเทศ", size: "เลือกขนาด", width: "ความกว้าง (มม.)", height: "ความสูง (มม.)", rotate: "มุมหมุน", warning: "ขนาดสี่เหลี่ยมเกินขนาดของ viewport ของคุณ" },
@@ -166,102 +166,156 @@
             Albania: [
                 { name: "Passport", value: "40,50" },
                 { name: "ID Card", value: "35,45" },
+                { name: "3R (89×127mm)", value: "89,127" },
+                { name: "4R (102×152mm)", value: "102,152" },
                 { name: "Custom", value: "custom" }
             ],
             Brazil: [
                 { name: "Passport", value: "50,70" },
                 { name: "ID Card (Carteira de Identidade)", value: "30,40" },
                 { name: "Visa", value: "35,45" },
+                { name: "3×5 (76×127mm)", value: "76,127" },
+                { name: "5×7 (127×178mm)", value: "127,178" },
+                { name: "A4 (210×297mm)", value: "210,297" },
                 { name: "Custom", value: "custom" }
             ],
             Canada: [
                 { name: "Passport", value: "50,70" },
                 { name: "Permanent Resident Card", value: "35,45" },
                 { name: "Citizenship Photo", value: "35,45" },
+                { name: "4×6 (102×152mm)", value: "102,152" },
+                { name: "5×7 (127×178mm)", value: "127,178" },
+                { name: "8×10 (203×254mm)", value: "203,254" },
                 { name: "Custom", value: "custom" }
             ],
             China: [
                 { name: "Passport", value: "33,48" },
                 { name: "ID Card", value: "25,35" },
                 { name: "Visa", value: "33,48" },
+                { name: "1寸 (25×35mm)", value: "25,35" },
+                { name: "2寸 (35×49mm)", value: "35,49" },
+                { name: "5寸/3R (89×127mm)", value: "89,127" },
+                { name: "6寸/4R (102×152mm)", value: "102,152" },
                 { name: "Custom", value: "custom" }
             ],
             France: [
                 { name: "Passport", value: "35,45" },
                 { name: "ID Card", value: "35,45" },
                 { name: "Visa", value: "35,45" },
+                { name: "9×13cm (90×130mm)", value: "90,130" },
+                { name: "10×15cm (100×150mm)", value: "100,150" },
+                { name: "13×18cm (130×180mm)", value: "130,180" },
                 { name: "Custom", value: "custom" }
             ],
             Germany: [
                 { name: "Passport", value: "35,45" },
                 { name: "ID Card", value: "35,45" },
                 { name: "Visa", value: "35,45" },
+                { name: "9×13cm (90×130mm)", value: "90,130" },
+                { name: "10×15cm (100×150mm)", value: "100,150" },
+                { name: "13×18cm (130×180mm)", value: "130,180" },
+                { name: "20×30cm (200×300mm)", value: "200,300" },
                 { name: "Custom", value: "custom" }
             ],
             India: [
                 { name: "Passport", value: "35,45" },
                 { name: "PAN Card", value: "25,35" },
                 { name: "Aadhaar Card", value: "35,45" },
+                { name: "3×5 (76×127mm)", value: "76,127" },
+                { name: "4×6 (102×152mm)", value: "102,152" },
+                { name: "5×7 (127×178mm)", value: "127,178" },
                 { name: "Custom", value: "custom" }
             ],
             Indonesia: [
                 { name: "Passport", value: "40,60" },
                 { name: "ID Card (KTP)", value: "30,40" },
                 { name: "Visa", value: "35,45" },
+                { name: "3R (89×127mm)", value: "89,127" },
+                { name: "4R (102×152mm)", value: "102,152" },
+                { name: "5R (127×178mm)", value: "127,178" },
                 { name: "Custom", value: "custom" }
             ],
             Japan: [
                 { name: "Passport", value: "35,45" },
                 { name: "My Number Card", value: "35,45" },
                 { name: "Visa", value: "45,45" },
+                { name: "L判 (89×127mm)", value: "89,127" },
+                { name: "KG (102×152mm)", value: "102,152" },
+                { name: "2L (127×178mm)", value: "127,178" },
+                { name: "A4 (210×297mm)", value: "210,297" },
                 { name: "Custom", value: "custom" }
             ],
             Mexico: [
                 { name: "Passport", value: "35,45" },
                 { name: "Voter ID (INE)", value: "25,35" },
                 { name: "Visa", value: "35,45" },
+                { name: "3R (89×127mm)", value: "89,127" },
+                { name: "4R (102×152mm)", value: "102,152" },
+                { name: "5×7 (127×178mm)", value: "127,178" },
                 { name: "Custom", value: "custom" }
             ],
             Philippines: [
                 { name: "Passport", value: "45,45" },
                 { name: "National ID", value: "35,45" },
                 { name: "Visa", value: "35,45" },
+                { name: "3R (89×127mm)", value: "89,127" },
+                { name: "4R (102×152mm)", value: "102,152" },
+                { name: "5R (127×178mm)", value: "127,178" },
                 { name: "Custom", value: "custom" }
             ],
             Russia: [
                 { name: "Passport", value: "35,45" },
                 { name: "Internal ID", value: "30,40" },
                 { name: "Visa", value: "35,45" },
+                { name: "9×12cm (90×120mm)", value: "90,120" },
+                { name: "10×15cm (100×150mm)", value: "100,150" },
+                { name: "15×20cm (150×200mm)", value: "150,200" },
                 { name: "Custom", value: "custom" }
             ],
             SouthKorea: [
                 { name: "Passport", value: "35,45" },
                 { name: "Resident ID", value: "35,45" },
                 { name: "Visa", value: "35,45" },
+                { name: "3×5 (76×127mm)", value: "76,127" },
+                { name: "4×6 (102×152mm)", value: "102,152" },
+                { name: "5×7 (127×178mm)", value: "127,178" },
                 { name: "Custom", value: "custom" }
             ],
             Thailand: [
                 { name: "Passport", value: "35,45" },
                 { name: "ID Card", value: "35,45" },
                 { name: "Visa", value: "40,60" },
+                { name: "3R (89×127mm)", value: "89,127" },
+                { name: "4R (102×152mm)", value: "102,152" },
+                { name: "5R (127×178mm)", value: "127,178" },
                 { name: "Custom", value: "custom" }
             ],
             Turkey: [
                 { name: "Passport", value: "50,60" },
                 { name: "ID Card (Kimlik)", value: "35,45" },
                 { name: "Visa", value: "50,50" },
+                { name: "4×6 (102×152mm)", value: "102,152" },
+                { name: "5×7 (127×178mm)", value: "127,178" },
+                { name: "A4 (210×297mm)", value: "210,297" },
                 { name: "Custom", value: "custom" }
             ],
             UK: [
                 { name: "Passport", value: "35,45" },
                 { name: "Driving Licence", value: "35,45" },
                 { name: "Visa", value: "35,45" },
+                { name: "4×6 (102×152mm)", value: "102,152" },
+                { name: "5×7 (127×178mm)", value: "127,178" },
+                { name: "6×8 (152×203mm)", value: "152,203" },
                 { name: "Custom", value: "custom" }
             ],
             USA: [
                 { name: "Passport", value: "51,51" },
                 { name: "Visa", value: "51,51" },
                 { name: "Green Card", value: "51,51" },
+                { name: "2×3 (51×76mm)", value: "51,76" },
+                { name: "4×6 (102×152mm)", value: "102,152" },
+                { name: "5×7 (127×178mm)", value: "127,178" },
+                { name: "8×10 (203×254mm)", value: "203,254" },
                 { name: "Custom", value: "custom" }
             ]
         };
@@ -372,6 +426,7 @@
             });
 
             langSelect.value = "en";
+            countrySelect.value = "USA"; // 设置默认国家为美国
             updateLanguage();
             updateSizes();
         };
