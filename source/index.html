@@ -81,6 +81,21 @@
         #control-panel select, #control-panel input {
             width: 100%;
         }
+        .slider-container {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .slider-container input[type="range"] {
+            width: 100%;
+        }
+        .slider-value {
+            text-align: right;
+            font-size: 14px;
+            color: #666;
+            position: absolute;
+            right: 0;
+            top: -20px;
+        }
         #rotate-options {
             display: flex;
             gap: 10px;
@@ -121,10 +136,19 @@
             <select id="country" onchange="updateSizes()"></select>
             <label id="sizeLabel">Select Photo Size:</label>
             <select id="presetSizes" onchange="selectPreset()"></select>
+            
             <label id="widthLabelInput">Width (mm):</label>
-            <input type="number" id="widthMM" value="24" onchange="drawRectangle()">
+            <div class="slider-container">
+                <div class="slider-value"><span id="widthValue">24</span> mm</div>
+                <input type="range" id="widthSlider" min="10" max="500" value="24" oninput="updateWidthAndDraw()">
+            </div>
+            
             <label id="heightLabelInput">Height (mm):</label>
-            <input type="number" id="heightMM" value="65" onchange="drawRectangle()">
+            <div class="slider-container">
+                <div class="slider-value"><span id="heightValue">65</span> mm</div>
+                <input type="range" id="heightSlider" min="10" max="500" value="65" oninput="updateHeightAndDraw()">
+            </div>
+            
             <label id="rotateLabel">Rotate Angle:</label>
             <div id="rotate-options">
                 <label><input type="radio" name="rotateAngle" value="0" checked onchange="drawRectangle()"> 0°</label>
@@ -150,7 +174,7 @@
             "it": { name: "Italiano", title: "Pannello di Controllo", lang: "Seleziona Lingua", country: "Seleziona Paese", size: "Seleziona Dimensione", width: "Larghezza (mm)", height: "Altezza (mm)", rotate: "Angolo di Rotazione", warning: "La dimensione del rettangolo supera le dimensioni del tuo viewport" },
             "ar": { name: "العربية", title: "لوحة التحكم", lang: "اختر اللغة", country: "اختر الدولة", size: "اختر الحجم", width: "العرض (مم)", height: "الارتفاع (مم)", rotate: "زاوية الدوران", warning: "حجم المستطيل يتجاوز أبعاد نافذة العرض الخاصة بك" },
             "ko": { name: "한국어", title: "제어판", lang: "언어 선택", country: "국가 선택", size: "크기 선택", width: "너비 (mm)", height: "높이 (mm)", rotate: "회전 각도", warning: "사각형 크기가 뷰포트 크기를 초과했습니다" },
-            "hi": { name: "हिन्दी", title: "नियंत्रण कक्ष", lang: "भाषा चुनें", country: "देश चुनें", size: "आकार चुनें", width: "चौड़ाई (मिमी)", height: "ऊंचाई (मिमी)", rotate: "घूमने का कोण", warning: "आयत का आकार आपके व्यूपोर्ट आयामों से अधिक है" },
+            "hi": { name: "हिन्दी", title: "नियंत्रण कक्ष", lang: "भाषा चुनें", country: "देश चुनें", size: "आकार चुनें", width: "चौड़ाई (मिमी)", height: "ऊंचाई (मिमी)", rotate: "घूमने का कोण", warning: "आयत का आकार आपके व्यूपोर्ट आयामों से अधिक্त है" },
             "bn": { name: "বাংলা", title: "নিয়ন্ত্রণ প্যানেল", lang: "ভাষা নির্বাচন করুন", country: "দেশ নির্বাচন করুন", size: "আকाর নির্বাচন করুন", width: "প্রস্থ (মিমি)", height: "উচ্চতা (মিমি)", rotate: "ঘূর্ণন কোণ", warning: "আয়তক্ষেত্রের আকाর আপনার ভিউপোর্টের মাত্রা অতিক্রম করেছে" },
             "tr": { name: "Türkçe", title: "Kontrol Paneli", lang: "Dil Seç", country: "Ülke Seç", size: "Boyut Seç", width: "Genişlik (mm)", height: "Yükseklik (mm)", rotate: "Dönüş Açısı", warning: "Dikdörtgen boyutu görüntü alanınızın boyutlarını aşıyor" },
             "vi": { name: "Tiếng Việt", title: "Bảng Điều Khiển", lang: "Chọn Ngôn Ngữ", country: "Chọn Quốc Gia", size: "Chọn Kích Thước", width: "Chiều Rộng (mm)", height: "Chiều Cao (mm)", rotate: "Góc Xoay", warning: "Kích thước hình chữ nhật vượt quá kích thước viewport của bạn" },
@@ -320,18 +344,52 @@
             ]
         };
 
+        // 计算屏幕可显示的最大尺寸（毫米）
+        function calculateMaxDimensions() {
+            const dpi = window.devicePixelRatio * 96;
+            const mmPerInch = 25.4;
+            
+            // 考虑到控制面板和其他UI元素，留出一些边距
+            const maxWidthPx = window.innerWidth * 0.8;
+            const maxHeightPx = window.innerHeight * 0.8;
+            
+            const maxWidthMM = Math.floor((maxWidthPx / dpi) * mmPerInch);
+            const maxHeightMM = Math.floor((maxHeightPx / dpi) * mmPerInch);
+            
+            return { maxWidthMM, maxHeightMM };
+        }
+        
+        function updateSliderLimits() {
+            const { maxWidthMM, maxHeightMM } = calculateMaxDimensions();
+            
+            const widthSlider = document.getElementById("widthSlider");
+            const heightSlider = document.getElementById("heightSlider");
+            
+            widthSlider.max = maxWidthMM;
+            heightSlider.max = maxHeightMM;
+        }
+        
+        function updateWidthAndDraw() {
+            const value = document.getElementById("widthSlider").value;
+            document.getElementById("widthValue").textContent = value;
+            // 当用户调整滑动条时，切换到自定义模式
+            document.getElementById("presetSizes").value = "custom";
+            drawRectangle(value);
+        }
+        
+        function updateHeightAndDraw() {
+            const value = document.getElementById("heightSlider").value;
+            document.getElementById("heightValue").textContent = value;
+            // 当用户调整滑动条时，切换到自定义模式
+            document.getElementById("presetSizes").value = "custom";
+            drawRectangle(null, value);
+        }
+
         function updateLanguage() {
             const lang = document.getElementById("language").value;
             const texts = languages[lang];
-            document.getElementById("title").textContent = texts.title;
-            document.getElementById("langLabel").textContent = texts.lang + ":";
-            document.getElementById("countryLabel").textContent = texts.country + ":";
-            document.getElementById("sizeLabel").textContent = texts.size + ":";
-            document.getElementById("widthLabelInput").textContent = texts.width + ":";
-            document.getElementById("heightLabelInput").textContent = texts.height + ":";
-            document.getElementById("rotateLabel").textContent = texts.rotate + ":";
-            document.getElementById("warning").textContent = texts.warning;
-            drawRectangle();
+            document.getElementById("widthValue").textContent = document.getElementById("widthSlider").value;
+            document.getElementById("heightValue").textContent = document.getElementById("heightSlider").value;
         }
 
         function updateSizes() {
@@ -349,9 +407,9 @@
             selectPreset();
         }
 
-        function drawRectangle() {
-            const widthMM = parseFloat(document.getElementById("widthMM").value) || 0;
-            const heightMM = parseFloat(document.getElementById("heightMM").value) || 0;
+        function drawRectangle(widthOverride, heightOverride) {
+            const widthMM = widthOverride || parseFloat(document.getElementById("widthSlider").value) || 0;
+            const heightMM = heightOverride || parseFloat(document.getElementById("heightSlider").value) || 0;
             const rotateAngle = parseInt(document.querySelector('input[name="rotateAngle"]:checked').value);
             const dpi = window.devicePixelRatio * 96;
             const mmPerInch = 25.4;
@@ -367,7 +425,7 @@
             document.getElementById("widthLabel").textContent = `${widthMM} mm`;
             document.getElementById("heightLabel").textContent = `${heightMM} mm`;
 
-            // Check if rectangle exceeds viewport
+            // 检查矩形是否超出视口
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
             const rectContainer = document.getElementById("rectangle-container");
@@ -392,18 +450,20 @@
 
         function selectPreset() {
             const preset = document.getElementById("presetSizes").value;
-            const widthInput = document.getElementById("widthMM");
-            const heightInput = document.getElementById("heightMM");
+            const widthSlider = document.getElementById("widthSlider");
+            const heightSlider = document.getElementById("heightSlider");
 
             if (preset === "custom") {
-                widthInput.disabled = false;
-                heightInput.disabled = false;
+                widthSlider.disabled = false;
+                heightSlider.disabled = false;
             } else {
                 const [width, height] = preset.split(",").map(Number);
-                widthInput.value = width;
-                heightInput.value = height;
-                widthInput.disabled = true;
-                heightInput.disabled = true;
+                widthSlider.value = width;
+                heightSlider.value = height;
+                document.getElementById("widthValue").textContent = width;
+                document.getElementById("heightValue").textContent = height;
+                widthSlider.disabled = true;
+                heightSlider.disabled = true;
                 drawRectangle();
             }
         }
