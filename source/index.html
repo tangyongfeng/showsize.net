@@ -366,12 +366,10 @@
                 </div>
             </div>
             
-            // 在<head>标签内添加meta描述
             </style>
             <meta name="description" content="35mm×49mm actual size comparison diagram | View online directly, supports overlay display with A4 paper and mobile screens">
             </head>
             
-            // 修改指定行的文本为英文
             <div class="control-group">
                 <div class="control-group-title" id="rotationTitle">Rotation Settings</div>
                 <label id="rotateLabel">Rotate Angle:</label>
@@ -438,7 +436,6 @@
             "ms": { name: "Bahasa Melayu", title: "Panel Kawalan", lang: "Pilih Bahasa", country: "Pilih Negara", size: "Pilih Saiz", width: "Lebar (mm)", height: "Tinggi (mm)", rotate: "Sudut Putaran", warning: "Saiz segi empat melebihi dimensi viewport anda" }
         };
 
-        // Countries' common photo sizes (in mm)
         const photoSizes = {
             Albania: [
                 { name: "Passport", value: "40,50" },
@@ -597,12 +594,10 @@
             ]
         };
 
-        // 计算屏幕可显示的最大尺寸（毫米）
         function calculateMaxDimensions() {
             const dpi = window.devicePixelRatio * 96;
             const mmPerInch = 25.4;
             
-            // 考虑到控制面板和其他UI元素，留出一些边距
             const maxWidthPx = window.innerWidth * 0.8;
             const maxHeightPx = window.innerHeight * 0.8;
             
@@ -625,7 +620,6 @@
         function updateWidthAndDraw() {
             const value = document.getElementById("widthSlider").value;
             document.getElementById("widthValue").textContent = value;
-            // 当用户调整滑动条时，切换到自定义模式
             document.getElementById("presetSizes").value = "custom";
             drawRectangle(value);
         }
@@ -633,7 +627,6 @@
         function updateHeightAndDraw() {
             const value = document.getElementById("heightSlider").value;
             document.getElementById("heightValue").textContent = value;
-            // 当用户调整滑动条时，切换到自定义模式
             document.getElementById("presetSizes").value = "custom";
             drawRectangle(null, value);
         }
@@ -642,7 +635,6 @@
             const lang = document.getElementById("language").value;
             const texts = languages[lang];
             
-            // 更新标题和标签
             document.getElementById("title").textContent = texts.title;
             document.getElementById("langLabel").textContent = texts.lang + ":";
             document.getElementById("countryLabel").textContent = texts.country + ":";
@@ -651,12 +643,10 @@
             document.getElementById("heightLabelInput").textContent = texts.height + ":";
             document.getElementById("rotateLabel").textContent = texts.rotate + ":";
             
-            // 更新分组标题
             document.getElementById("basicSettingsTitle").textContent = texts.basicSettings;
             document.getElementById("dimensionsTitle").textContent = texts.dimensions;
             document.getElementById("rotationTitle").textContent = texts.rotation;
             
-            // 更新数值显示
             document.getElementById("widthValue").textContent = document.getElementById("widthSlider").value;
             document.getElementById("heightValue").textContent = document.getElementById("heightSlider").value;
         }
@@ -676,7 +666,6 @@
             selectPreset();
         }
 
-        // 添加防抖函数优化性能
         const debounce = (func, wait = 300) => {
             let timeout;
             return (...args) => {
@@ -685,7 +674,6 @@
             };
         };
         
-        // 优化滑块事件处理
         function initializeSliders() {
             const widthSlider = document.getElementById("widthSlider");
             const heightSlider = document.getElementById("heightSlider");
@@ -694,7 +682,6 @@
             heightSlider.addEventListener('input', debounce(updateHeightAndDraw));
         }
         
-        // 优化绘制函数
         function drawRectangle(widthOverride, heightOverride) {
             requestAnimationFrame(() => {
                 const widthMM = widthOverride || parseFloat(document.getElementById("widthSlider").value) || 0;
@@ -710,7 +697,6 @@
                 rect.style.width = `${widthPX}px`;
                 rect.style.height = `${heightPX}px`;
                 
-                // 修改transform属性，确保旋转时仍然保持中心点
                 if (rotateAngle === 0) {
                     rect.style.transform = `translate(-50%, -50%)`;
                 } else {
@@ -720,16 +706,13 @@
                 document.getElementById("widthLabel").textContent = `${widthMM} mm`;
                 document.getElementById("heightLabel").textContent = `${heightMM} mm`;
         
-                // 调整标签位置，确保它们始终在矩形的适当位置
                 const widthLabel = document.getElementById("widthLabel");
                 const heightLabel = document.getElementById("heightLabel");
                 
-                // 获取矩形的实际尺寸
                 const rectWidth = rect.offsetWidth;
                 const rectHeight = rect.offsetHeight;
                 
                 if (rotateAngle === 90 || rotateAngle === 270) {
-                    // 当旋转90或270度时，宽高标签需要交换位置
                     widthLabel.style.bottom = "auto";
                     widthLabel.style.right = "auto";
                     widthLabel.style.top = "50%";
@@ -744,7 +727,6 @@
                     heightLabel.style.transform = "translateX(-50%)";
                     heightLabel.style.writingMode = "horizontal-tb";
                 } else {
-                    // 恢复正常位置
                     widthLabel.style.bottom = `calc(-30px)`;
                     widthLabel.style.left = "50%";
                     widthLabel.style.top = "auto";
@@ -760,7 +742,6 @@
                     heightLabel.style.writingMode = "vertical-rl";
                 }
         
-                // 检查矩形是否超出视口
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
                 const rectContainer = document.getElementById("rectangle-container");
@@ -798,14 +779,11 @@
                 heightSlider.value = height;
                 document.getElementById("widthValue").textContent = width;
                 document.getElementById("heightValue").textContent = height;
-                // 移除禁用滑动条的代码，使滑动条始终可用
-                // widthSlider.disabled = true;
-                // heightSlider.disabled = true;
+
                 drawRectangle();
             }
         }
 
-        // 添加缓存机制
         const cache = {
             dpi: null,
             maxDimensions: null
@@ -830,7 +808,6 @@
             return cache.maxDimensions;
         }
         
-        // 优化窗口事件监听
         window.onload = function() {
             const langSelect = document.getElementById("language");
             Object.keys(languages).forEach(lang => {
@@ -849,20 +826,18 @@
             });
 
             langSelect.value = "en";
-            countrySelect.value = "USA"; // 设置默认国家为美国
+            countrySelect.value = "USA"; // set default
             updateLanguage();
             updateSizes();
             
-            // 初始化滑动条的最大值
             updateSliderLimits();
             
-            // 监听窗口大小变化，更新滑动条限制
             window.addEventListener('resize', function() {
                 updateSliderLimits();
                 drawRectangle();
             });
             
-            // 初始绘制矩形
+            
             drawRectangle();
         };
             drawRectangle();
